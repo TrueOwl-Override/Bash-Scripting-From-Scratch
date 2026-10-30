@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bash Scripting</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f7f9;--panel:#ffffff;--panel2:#f0f2f5;--text:#1b1f24;--muted:#5b6470;--line:#e2e5ea;
+  --accent:#16a34a;--accent2:#0ea5e9;--accent3:#a855f7;--code:#0f172a;--codetext:#e2e8f0;--hl:#fde68a;
+  --shadow:0 1px 2px rgba(0,0,0,.04),0 4px 16px rgba(0,0,0,.05);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0b0f14;--panel:#111821;--panel2:#16202b;--text:#e6edf3;--muted:#8b98a7;--line:#1f2b38;
+    --accent:#3fdc7c;--accent2:#38bdf8;--accent3:#c084fc;--code:#070b10;--codetext:#d7e3ee;--hl:#5b4a12;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 24px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0b0f14;--panel:#111821;--panel2:#16202b;--text:#e6edf3;--muted:#8b98a7;--line:#1f2b38;
+  --accent:#3fdc7c;--accent2:#38bdf8;--accent3:#c084fc;--code:#070b10;--codetext:#d7e3ee;--hl:#5b4a12;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 24px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:150px}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.55 Inter,system-ui,sans-serif}
+code,.mono{font-family:"JetBrains Mono",ui-monospace,monospace}
+a{color:inherit}
+
+header{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar{max-width:1280px;margin:0 auto;padding:14px 16px;display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px;white-space:nowrap}
+.brand .prompt{font-family:"JetBrains Mono",monospace;color:var(--accent)}
+.brand .cursor{display:inline-block;width:9px;height:18px;background:var(--accent);vertical-align:-3px;animation:blink 1.1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.search{flex:1;min-width:220px;position:relative}
+.search input{width:100%;padding:11px 44px 11px 40px;border-radius:12px;border:1px solid var(--line);background:var(--panel);color:var(--text);font:inherit;outline:none;box-shadow:var(--shadow)}
+.search input:focus{border-color:var(--accent)}
+.search svg{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--muted)}
+.search kbd{position:absolute;right:10px;top:50%;transform:translateY(-50%);font:12px "JetBrains Mono",monospace;color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:1px 7px;background:var(--panel2)}
+.iconbtn{border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:10px;width:40px;height:40px;cursor:pointer;font-size:17px}
+.chiprow{max-width:1280px;margin:0 auto;padding:0 16px 12px;display:flex;gap:12px;align-items:center}
+.chips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0;mask-image:linear-gradient(90deg,#000 92%,transparent)}
+.chips::-webkit-scrollbar{display:none}
+.chip{white-space:nowrap;flex:none}
+.chip{border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:999px;padding:6px 14px;cursor:pointer;font:500 13px Inter,sans-serif}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#04120a}
+.count{color:var(--muted);font-size:13px;white-space:nowrap}
+
+.layout{max-width:1280px;margin:0 auto;padding:20px 16px 80px;display:grid;grid-template-columns:260px 1fr;gap:28px}
+nav.toc{position:sticky;top:140px;align-self:start;max-height:calc(100vh - 160px);overflow:auto;padding-right:6px}
+.toc h4{margin:16px 0 6px;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.toc a{display:block;text-decoration:none;color:var(--muted);font-size:13.5px;padding:4px 10px;border-left:2px solid var(--line)}
+.toc a:hover,.toc a.active{color:var(--text);border-color:var(--accent)}
+.toc a.hidden{display:none}
+.toc a{display:flex;align-items:center;gap:8px}
+.toc .e{width:20px;text-align:center}
+.toc .n,.secthead .n{margin-left:auto;font:12px "JetBrains Mono",monospace;color:var(--muted);background:var(--panel2);border:1px solid var(--line);border-radius:999px;padding:0 8px}
+.secthead .n{margin-left:0}
+.cat{margin-bottom:36px}
+
+.hero{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:28px}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:var(--shadow)}
+.stat b{display:block;font:700 28px "JetBrains Mono",monospace}
+.stat span{color:var(--muted);font-size:13px}
+.stat:nth-child(1) b{color:var(--accent)}.stat:nth-child(2) b{color:var(--accent2)}.stat:nth-child(3) b{color:var(--accent3)}
+
+.secthead{display:flex;align-items:baseline;gap:12px;margin:34px 0 4px}
+.secthead h2{margin:0;font-size:26px}
+.sectdesc{color:var(--muted);margin:0 0 14px}
+.tema{margin:22px 0 30px}
+.tema h3{font-size:17px;margin:0 0 12px;display:flex;align-items:center;gap:10px}
+.tema h3::before{content:"#";font-family:"JetBrains Mono",monospace;color:var(--accent)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:14px;align-items:start}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:10px;min-width:0}
+.card .name{font:700 17px "JetBrains Mono",monospace;color:var(--accent);word-break:break-word}
+.card.usage .name{color:var(--accent2)}
+.card .desc{margin:0;color:var(--text)}
+.ex{position:relative;background:var(--code);color:var(--codetext);border-radius:10px;padding:10px 40px 10px 12px;font:13px/1.5 "JetBrains Mono",monospace;overflow-x:auto;white-space:pre}
+.ex::before{content:"$ ";color:#3fdc7c}
+.copy{position:absolute;top:6px;right:6px;border:0;background:rgba(255,255,255,.08);color:#cbd5e1;border-radius:7px;width:28px;height:26px;cursor:pointer;font-size:13px}
+.copy:hover{background:rgba(255,255,255,.18)}
+.copy.ok{color:#3fdc7c}
+.params{border-top:1px dashed var(--line);padding-top:10px;display:flex;flex-direction:column;gap:10px}
+.params .lbl{font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:600}
+.param{display:grid;grid-template-columns:auto 1fr;gap:4px 10px;align-items:start}
+.param code.flag{background:var(--panel2);border:1px solid var(--line);border-radius:6px;padding:1px 7px;font-size:12.5px;color:var(--accent3);white-space:pre-wrap;word-break:break-all;max-width:170px}
+.param p{margin:0;font-size:13.5px;color:var(--muted)}
+.param .ex{grid-column:1/-1;font-size:12.5px;padding:7px 38px 7px 10px}
+mark{background:var(--hl);color:inherit;border-radius:3px;padding:0 1px}
+.empty{text-align:center;color:var(--muted);padding:60px 0;display:none}
+.totop{position:fixed;right:18px;bottom:18px;border-radius:999px;width:44px;height:44px;border:1px solid var(--line);background:var(--panel);color:var(--text);cursor:pointer;box-shadow:var(--shadow);font-size:18px}
+footer{color:var(--muted);font-size:13px;text-align:center;padding:30px 0 0}
+
+@media (max-width:900px){
+  .layout{grid-template-columns:1fr}
+  nav.toc{display:none}
+  .hero{grid-template-columns:repeat(3,1fr)}
+  .stat b{font-size:22px}
+  .grid{grid-template-columns:1fr}
+  .search kbd{display:none}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="bar">
+    <div class="brand"><span class="prompt">~$</span> bash-scripting<span class="cursor"></span></div>
+    <label class="search">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" type="search" placeholder="Search a keyword, parameter or description…" autocomplete="off" aria-label="Search">
+      <kbd>/</kbd>
+    </label>
+    <button class="iconbtn" id="theme" title="Toggle theme" aria-label="Toggle theme">◐</button>
+  </div>
+  <div class="chiprow"><div class="chips" id="chips"></div><div id="countbox"></div></div>
+</header>
+
+<div class="layout">
+  <nav class="toc" id="toc"></nav>
+  <main>
+    <div class="hero" id="hero"></div>
+    <div id="content"></div>
+    <div class="empty" id="empty">😶 Nothing matches your search.</div>
+    <footer>Companion to <a href="https://github.com/TrueOwl-Override/Linux-Commands">Linux-Commands</a> · <span class="mono">python3 scripts/build.py</span></footer>
+  </main>
+</div>
+<button class="totop" onclick="scrollTo({top:0})" aria-label="Back to top">↑</button>
+
+<script>
+const DATA = /*__DATA__*/null;
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const norm = s => String(s ?? "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+
+// Theme
+(function(){
+  let t = null; try { t = localStorage.getItem("theme"); } catch(e){}
+  if (t) document.documentElement.dataset.theme = t;
+  $("#theme").onclick = () => {
+    const cur = document.documentElement.dataset.theme ||
+      (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    const next = cur === "dark" ? "light" : "dark";
+    document.documentElement.dataset.theme = next;
+    try { localStorage.setItem("theme", next); } catch(e){}
+  };
+})();
+
+const exBlock = (ex) => ex ? `<div class="ex"><span class="t">${esc(ex)}</span><button class="copy" title="Copy" aria-label="Copy">⧉</button></div>` : "";
+
+function cardHTML(c){
+  const params = c.params.length ? `<div class="params"><div class="lbl">Parameters</div>${
+    c.params.map(p=>`<div class="param"><code class="flag">${esc(p.flag)}</code><p>${esc(p.desc)}</p>${exBlock(p.ex)}</div>`).join("")}</div>` : "";
+  return `<article class="card"><div class="name">${esc(c.name)}</div>${c.desc?`<p class="desc">${esc(c.desc)}</p>`:""}${exBlock(c.ex)}${params}</article>`;
+}
+
+// Render
+const cats = DATA.categories;
+cats.forEach(cat => cat.commands.forEach(c => c.text = norm([c.name,c.desc,c.ex,...c.params.flatMap(p=>[p.flag,p.desc,p.ex])].join(" "))));
+$("#hero").innerHTML = `
+  <div class="stat"><b>${DATA.stats.commands}</b><span>items</span></div>
+  <div class="stat"><b>${DATA.stats.parameters}</b><span>parameters</span></div>
+  <div class="stat"><b>${DATA.stats.categories}</b><span>categories</span></div>`;
+
+$("#content").innerHTML = cats.map(cat =>
+  `<section class="cat" id="${cat.id}"><div class="secthead"><h2>${cat.emoji} ${esc(cat.name)}</h2><span class="n">${cat.commands.length}</span></div>
+   <p class="sectdesc">${esc(cat.desc)}</p><div class="grid">${cat.commands.map(cardHTML).join("")}</div></section>`).join("");
+$("#toc").innerHTML = `<h4>Categories</h4>` + cats.map(cat =>
+  `<a href="#${cat.id}" data-id="${cat.id}"><span class="e">${cat.emoji}</span>${esc(cat.name)}<span class="n">${cat.commands.length}</span></a>`).join("");
+
+cats.forEach(cat => {
+  cat.el = document.getElementById(cat.id);
+  const cardEls = cat.el.querySelectorAll(".card");
+  cat.commands.forEach((c, j) => { c.el = cardEls[j]; c.orig = cardEls[j].innerHTML; });
+});
+
+// Category chips
+const active = new Set();
+$("#chips").innerHTML = cats.map(c => `<button class="chip" aria-pressed="false" data-s="${c.id}">${c.emoji} ${esc(c.name)}</button>`).join("");
+$("#countbox").innerHTML = `<span class="count" id="count"></span>`;
+document.querySelectorAll(".chip").forEach(b => b.onclick = () => {
+  const s = b.dataset.s; active.has(s) ? active.delete(s) : active.add(s);
+  b.setAttribute("aria-pressed", active.has(s)); apply();
+});
+
+function highlight(el, terms){
+  if (!terms.length) return;
+  const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+  const nodes = []; while (walker.nextNode()) nodes.push(walker.currentNode);
+  nodes.forEach(n => {
+    if (n.parentElement.closest("button")) return;
+    const txt = n.nodeValue, low = norm(txt);
+    const ranges = [];
+    terms.forEach(t => { let i = 0; while ((i = low.indexOf(t, i)) !== -1){ ranges.push([i, i + t.length]); i += t.length; } });
+    if (!ranges.length) return;
+    ranges.sort((a,b)=>a[0]-b[0]);
+    const frag = document.createDocumentFragment(); let pos = 0;
+    ranges.forEach(([a,b]) => { if (a < pos) return; frag.append(txt.slice(pos,a)); const m = document.createElement("mark"); m.textContent = txt.slice(a,b); frag.append(m); pos = b; });
+    frag.append(txt.slice(pos)); n.replaceWith(frag);
+  });
+}
+
+function apply(){
+  const terms = norm($("#q").value).split(/\s+/).filter(Boolean);
+  let shown = 0;
+  cats.forEach(cat => {
+    const catOk = !active.size || active.has(cat.id);
+    let any = false;
+    cat.commands.forEach(c => {
+      const ok = catOk && terms.every(term => c.text.includes(term));
+      c.el.style.display = ok ? "" : "none";
+      c.el.innerHTML = c.orig;
+      if (ok){ any = true; shown++; highlight(c.el, terms); }
+    });
+    cat.el.style.display = any ? "" : "none";
+    document.querySelector(`.toc a[data-id="${cat.id}"]`).classList.toggle("hidden", !any);
+  });
+  $("#empty").style.display = shown ? "none" : "block";
+  $("#count").textContent = `${shown} item${shown === 1 ? "" : "s"}`;
+}
+$("#q").addEventListener("input", apply);
+document.addEventListener("keydown", e => {
+  if (e.key === "/" && document.activeElement !== $("#q")){ e.preventDefault(); $("#q").focus(); }
+  if (e.key === "Escape" && document.activeElement === $("#q")){ $("#q").value = ""; apply(); }
+});
+
+// Copy buttons
+document.addEventListener("click", async e => {
+  const b = e.target.closest(".copy"); if (!b) return;
+  const text = b.parentElement.querySelector(".t").textContent;
+  try { await navigator.clipboard.writeText(text); } catch(err){
+    const ta = document.createElement("textarea"); ta.value = text; document.body.append(ta); ta.select(); try{document.execCommand("copy");}catch(_){} ta.remove();
+  }
+  b.textContent = "✓"; b.classList.add("ok"); setTimeout(() => { b.textContent = "⧉"; b.classList.remove("ok"); }, 1200);
+});
+
+// Active TOC link on scroll
+const io = new IntersectionObserver(entries => {
+  entries.forEach(en => { if (en.isIntersecting){
+    document.querySelectorAll(".toc a.active").forEach(a => a.classList.remove("active"));
+    const a = document.querySelector(`.toc a[data-id="${en.target.id}"]`); if (a) a.classList.add("active");
+  }});
+}, {rootMargin: "-160px 0px -70% 0px"});
+cats.forEach(c => io.observe(c.el));
+
+apply();
+</script>
+</body>
+</html>

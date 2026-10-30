@@ -1,0 +1,10 @@
+Category,Emoji,Description
+Script Basics,📜,"The building blocks of every script: the shebang, exit codes, command substitution and subshells."
+Variables & Arithmetic,📦,"Store values in variables, read them back and do math with them."
+Arguments & Options,🎯,"Read what's passed to your script: positional arguments and flags parsed with getopts."
+Conditionals,🔀,Make decisions with if and case.
+Loops & Sequences,🔁,"Repeat work with for and while, and generate sequences to loop over."
+Functions & Signals,🧩,"Group commands into functions and react to signals like Ctrl+C."
+"Jobs, Temp Files & Terminal",⚙️,"Wait for background jobs, set time limits, create temp files and control the cursor."
+Networking in Bash,🌐,Open TCP connections from pure Bash and make HTTP requests.
+Helper Tools,🛠️,Handy tools for reading and prettifying code while you script.

@@ -1,0 +1,18 @@
+Command,Parameter,Description,Example
+exit,1,"Ends the script with exit code 1, signalling an error",exit 1
+declare,-i,"Makes the variable an integer, so its value is treated as a number",declare -i counter=0
+let,+=,Adds a value to what the variable already holds,let counter+=1
+getopts,"""m:h"" arg","List of valid options, stored in arg; a "":"" after a letter means that option takes a value, which ends up in $OPTARG","while getopts ""m:h"" arg; do case $arg in m) name=$OPTARG;; h) help;; esac; done"
+if,-eq,Checks whether two numbers are equal,"if [ $a -eq $b ]; then echo ""equal""; fi"
+case,m) command;;,Defines a pattern inside case and the block to run if it matches; ;; closes that block,"case $arg in m) echo ""option m"";; esac"
+while,[ ]; do; done,Repeats the block while the condition inside the brackets is true,while [ -f file.gz ]; do gunzip file.gz; done
+while,read line; do; done,Reads input line by line and runs the block for each line,cat list.txt | while read line; do echo $line; done
+for,line in; do; done,Goes through the items of a list one by one and runs the block for each,for line in $(cat list.txt); do echo $line; done
+function name(){ commands },ctrl_c(){},Defines the ctrl_c function that runs when trap catches Ctrl+C,"function ctrl_c(){ echo ""Exiting...""; exit 1; }"
+trap,ctrl_c INT,Catches the Ctrl+C signal and runs the ctrl_c function instead of stopping the script,trap ctrl_c INT
+timeout,"1 bash -c """"","Runs a command with a 1-second limit; if it doesn't finish, it's cancelled","timeout 1 bash -c ""echo > /dev/tcp/127.0.0.1/22"" && echo ""open"""
+mktemp,-d,"Creates a temporary folder instead of a file, with a unique name",mktemp -d
+tput,civis,Hides the terminal cursor,tput civis
+tput,cnorm,Shows the terminal cursor again,tput cnorm
+curl,-s,Silent mode: hides the progress bar and error messages,curl -s https://example.com
+curl,-X GET,"Sets the request's HTTP method (GET, POST, PUT...)",curl -s -X GET https://example.com

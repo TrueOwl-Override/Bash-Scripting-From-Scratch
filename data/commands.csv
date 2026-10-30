@@ -1,0 +1,31 @@
+Category,Command,Description,Example
+Script Basics,#!/bin/bash,"Shebang: the first line of a script, telling the system to run it with Bash",#!/bin/bash   (first line of script.sh)
+Script Basics,exit,Ends the script; its exit code tells whether it worked (0) or failed (anything else),exit 0
+Script Basics,$(),Runs the command inside the parentheses and uses its output (command substitution),"echo ""I'm in $(pwd)"""
+Script Basics,(command),"Runs the command in a subshell, a child process separate from the main script",(ping -c 1 192.168.1.1) &
+Variables & Arithmetic,"variable=""Hello""",Declares a variable and assigns it some text (no spaces around the =),"greeting=""Hello""; echo $greeting"
+Variables & Arithmetic,$variable or ${variable},Reads a variable's value; the braces mark where the name ends when it's stuck to other text,"file=""data""; echo ""${file}_backup.txt"""
+Variables & Arithmetic,declare,"Declares variables with attributes, for example making them integers",declare -i counter=0
+Variables & Arithmetic,let,Does arithmetic on variables,let counter+=1
+Arguments & Options,$0,Holds the name of the script as it was called from the terminal,echo $0
+Arguments & Options,"$1, $2...","The first, second (and so on) argument passed on the command line",./script.sh hello world → echo $1
+Arguments & Options,$#,Holds the number of arguments passed on the command line,"echo ""Got $# arguments"""
+Arguments & Options,$*,Holds all the arguments passed on the command line in a single variable,"echo ""Arguments: $*"""
+Arguments & Options,getopts,"Processes the options a script receives (-m, -h...) one at a time; usually used inside a while loop","while getopts ""m:h"" arg; do ... done"
+Arguments & Options,$OPTARG,Holds the value that comes with the option getopts is currently processing,m) name=$OPTARG;;
+Conditionals,if,Runs a block if the condition is true and another one (else) if it isn't; closed with fi,"if [ $n -eq 1 ]; then echo ""one""; else echo ""other""; fi"
+Conditionals,case,Compares a variable against several patterns and runs the block that matches; closed with esac,"case $arg in m) echo ""option m"";; esac"
+Loops & Sequences,for,"Loops over a list of items one by one, running a block of code for each",for i in $(seq 1 5); do echo $i; done
+Loops & Sequences,while,Repeats a block of code while a condition is true,while [ $i -lt 5 ]; do echo $i; i=$((i+1)); done
+Loops & Sequences,seq,"Generates a sequence of numbers within a range, handy for loops",seq 1 10
+Loops & Sequences,{0000..9999},"Brace expansion: generates a sequence of values (here 0000 to 9999), useful as a counter in loops",for i in {0000..9999}; do echo $i; done
+Functions & Signals,function name(){ commands },Defines a custom function that groups several commands under one name,"function greet(){ echo ""Hello $1""; }"
+Functions & Signals,trap,Catches a signal (like Ctrl+C) and runs a function instead of stopping the script right away,trap ctrl_c INT
+"Jobs, Temp Files & Terminal",wait,Waits for one or more background processes to finish before continuing,sleep 5 & wait
+"Jobs, Temp Files & Terminal",timeout,Runs a command and kills it if it takes longer than the given time,timeout 5 ping 8.8.8.8
+"Jobs, Temp Files & Terminal",mktemp,"Creates a temporary file with a unique name, avoiding clashes with other files",mktemp
+"Jobs, Temp Files & Terminal",tput,"Controls the terminal, for example hiding or showing the cursor",tput civis
+Networking in Bash,/dev/tcp/$ip/$port,"Special Bash path that opens a TCP connection to an IP and port as if it were a file, no netcat needed","echo '' > /dev/tcp/127.0.0.1/22 && echo ""open"""
+Networking in Bash,curl,"Sends requests to a URL from the terminal (HTTP, HTTPS, etc.) and shows the response",curl -s -X GET https://example.com
+Helper Tools,batcat,"Shows a file like cat, but with syntax highlighting and line numbers",batcat script.sh
+Helper Tools,js-beautify,Formats minified JavaScript or JSON so it's readable (line breaks and indentation),curl -s -X GET https://example.com/bundle.js | js-beautify
