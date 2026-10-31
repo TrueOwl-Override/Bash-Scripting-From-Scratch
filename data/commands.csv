@@ -5,6 +5,7 @@ Script Basics,$(),Runs the command inside the parentheses and uses its output (c
 Script Basics,(command),"Runs the command in a subshell, a child process separate from the main script",(ping -c 1 192.168.1.1) &
 Variables & Arithmetic,"variable=""Hello""",Declares a variable and assigns it some text (no spaces around the =),"greeting=""Hello""; echo $greeting"
 Variables & Arithmetic,$variable or ${variable},Reads a variable's value; the braces mark where the name ends when it's stuck to other text,"file=""data""; echo ""${file}_backup.txt"""
+Variables & Arithmetic,${color_variable},Variables that hold ANSI color codes; put one before the text to color it and close with the end-color variable,"greenColour=""\e[0;32m\033[1m""; endColour=""\033[0m\e[0m""; echo -e ""${greenColour}[+] Hello${endColour}"""
 Variables & Arithmetic,declare,"Declares variables with attributes, for example making them integers",declare -i counter=0
 Variables & Arithmetic,let,Does arithmetic on variables,let counter+=1
 Arguments & Options,$0,Holds the name of the script as it was called from the terminal,echo $0
