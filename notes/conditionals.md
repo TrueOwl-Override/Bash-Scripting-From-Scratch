@@ -2,7 +2,7 @@
 
 > Make decisions with if and case.
 
-**2** items · **2** parameters  ·  [⬅ Back to index](../README.md)
+**3** items · **3** parameters  ·  [⬅ Back to index](../README.md)
 
 <a id="commands"></a>
 
@@ -10,6 +10,7 @@
 |:--|:--|
 | [`if`](#cmd-if) | Runs a block if the condition is true and another one (else) if it isn't; closed with fi |
 | [`case`](#cmd-case) | Compares a variable against several patterns and runs the block that matches; closed with esac |
+| [`elif`](#cmd-elif) | Inside an if, checks another condition when the previous one wasn't met (else if) |
 
 ---
 
@@ -26,6 +27,7 @@ if [ $n -eq 1 ]; then echo "one"; else echo "other"; fi
 | Parameter | What it does | Example |
 |:--|:--|:--|
 | `-eq` | Checks whether two numbers are equal | `if [ $a -eq $b ]; then echo "equal"; fi` |
+| `-f` | Checks whether the file exists and is a regular file (not a folder) | `if [ -f file.txt ]; then echo "exists"; fi` |
 
 <sub>[⬆ Back to top](#commands)</sub>
 
@@ -44,5 +46,19 @@ case $arg in m) echo "option m";; esac
 | Parameter | What it does | Example |
 |:--|:--|:--|
 | `m) command;;` | Defines a pattern inside case and the block to run if it matches; ;; closes that block | `case $arg in m) echo "option m";; esac` |
+
+<sub>[⬆ Back to top](#commands)</sub>
+
+---
+
+<a id="cmd-elif"></a>
+
+## `elif`
+
+Inside an if, checks another condition when the previous one wasn't met (else if)
+
+```bash
+if [ $n -eq 1 ]; then echo "one"; elif [ $n -eq 2 ]; then echo "two"; else echo "other"; fi
+```
 
 <sub>[⬆ Back to top](#commands)</sub>

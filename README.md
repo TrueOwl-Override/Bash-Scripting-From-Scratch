@@ -4,7 +4,7 @@
 
 **A personal reference for writing Bash scripts: variables, arguments, conditionals, loops, functions and more, with copy-ready examples.**
 
-![Concepts](https://img.shields.io/badge/concepts-31-2ea44f?style=for-the-badge) ![Parameters](https://img.shields.io/badge/parameters-17-0969da?style=for-the-badge) ![Categories](https://img.shields.io/badge/categories-9-8250df?style=for-the-badge)
+![Concepts](https://img.shields.io/badge/concepts-32-2ea44f?style=for-the-badge) ![Parameters](https://img.shields.io/badge/parameters-18-0969da?style=for-the-badge) ![Categories](https://img.shields.io/badge/categories-9-8250df?style=for-the-badge)
 
 🌐 **Searchable web version:** [`docs/index.html`](docs/index.html)  ·  🐧 **Companion repo:** [Linux-Commands](https://github.com/TrueOwl-Override/Linux-Commands)
 
@@ -19,7 +19,7 @@
 | 📜 | **[Script Basics](notes/script-basics.md)** | The building blocks of every script: the shebang, exit codes, command substitution and subshells. | `#!/bin/bash` `exit` `$()` `(command)` |
 | 📦 | **[Variables & Arithmetic](notes/variables-arithmetic.md)** | Store values in variables, read them back and do math with them. | `variable="Hello"` `$variable or ${variable}` `${color_variable}` `declare` `let` |
 | 🎯 | **[Arguments & Options](notes/arguments-options.md)** | Read what's passed to your script: positional arguments and flags parsed with getopts. | `$0` `$1, $2...` `$#` `$*` `getopts` `$OPTARG` |
-| 🔀 | **[Conditionals](notes/conditionals.md)** | Make decisions with if and case. | `if` `case` |
+| 🔀 | **[Conditionals](notes/conditionals.md)** | Make decisions with if and case. | `if` `case` `elif` |
 | 🔁 | **[Loops & Sequences](notes/loops-sequences.md)** | Repeat work with for and while, and generate sequences to loop over. | `for` `while` `seq` `{0000..9999}` |
 | 🧩 | **[Functions & Signals](notes/functions-signals.md)** | Group commands into functions and react to signals like Ctrl+C. | `function name(){ commands }` `trap` |
 | ⚙️ | **[Jobs, Temp Files & Terminal](notes/jobs-temp-files-terminal.md)** | Wait for background jobs, set time limits, create temp files and control the cursor. | `wait` `timeout` `mktemp` `tput` |
@@ -34,6 +34,7 @@
 | [`case`](notes/conditionals.md#cmd-case) | Compares a variable against several patterns and runs the block that matches; closed with esac | 🔀 Conditionals |
 | [`curl`](notes/networking-in-bash.md#cmd-curl) | Sends requests to a URL from the terminal (HTTP, HTTPS, etc.) and shows the response | 🌐 Networking in Bash |
 | [`declare`](notes/variables-arithmetic.md#cmd-declare) | Declares variables with attributes, for example making them integers | 📦 Variables & Arithmetic |
+| [`elif`](notes/conditionals.md#cmd-elif) | Inside an if, checks another condition when the previous one wasn't met (else if) | 🔀 Conditionals |
 | [`exit`](notes/script-basics.md#cmd-exit) | Ends the script; its exit code tells whether it worked (0) or failed (anything else) | 📜 Script Basics |
 | [`for`](notes/loops-sequences.md#cmd-for) | Loops over a list of items one by one, running a block of code for each | 🔁 Loops & Sequences |
 | [`function name(){ commands }`](notes/functions-signals.md#cmd-function-name-commands) | Defines a custom function that groups several commands under one name | 🧩 Functions & Signals |
