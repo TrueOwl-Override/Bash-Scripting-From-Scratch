@@ -17,6 +17,7 @@ Arguments & Options,$OPTARG,Holds the value that comes with the option getopts i
 Conditionals,if,Runs a block if the condition is true and another one (else) if it isn't; closed with fi,"if [ $n -eq 1 ]; then echo ""one""; else echo ""other""; fi"
 Conditionals,case,Compares a variable against several patterns and runs the block that matches; closed with esac,"case $arg in m) echo ""option m"";; esac"
 Conditionals,elif,"Inside an if, checks another condition when the previous one wasn't met (else if)","if [ $n -eq 1 ]; then echo ""one""; elif [ $n -eq 2 ]; then echo ""two""; else echo ""other""; fi"
+Conditionals,else,Runs a block when none of the if or elif conditions were met; goes right before fi,"if [ -f file.txt ]; then echo ""exists""; else echo ""missing""; fi"
 Loops & Sequences,for,"Loops over a list of items one by one, running a block of code for each",for i in $(seq 1 5); do echo $i; done
 Loops & Sequences,while,Repeats a block of code while a condition is true,while [ $i -lt 5 ]; do echo $i; i=$((i+1)); done
 Loops & Sequences,seq,"Generates a sequence of numbers within a range, handy for loops",seq 1 10

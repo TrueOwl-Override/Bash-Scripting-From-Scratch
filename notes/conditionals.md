@@ -2,7 +2,7 @@
 
 > Make decisions with if and case.
 
-**3** items · **3** parameters  ·  [⬅ Back to index](../README.md)
+**4** items · **3** parameters  ·  [⬅ Back to index](../README.md)
 
 <a id="commands"></a>
 
@@ -11,6 +11,7 @@
 | [`if`](#cmd-if) | Runs a block if the condition is true and another one (else) if it isn't; closed with fi |
 | [`case`](#cmd-case) | Compares a variable against several patterns and runs the block that matches; closed with esac |
 | [`elif`](#cmd-elif) | Inside an if, checks another condition when the previous one wasn't met (else if) |
+| [`else`](#cmd-else) | Runs a block when none of the if or elif conditions were met; goes right before fi |
 
 ---
 
@@ -59,6 +60,20 @@ Inside an if, checks another condition when the previous one wasn't met (else if
 
 ```bash
 if [ $n -eq 1 ]; then echo "one"; elif [ $n -eq 2 ]; then echo "two"; else echo "other"; fi
+```
+
+<sub>[⬆ Back to top](#commands)</sub>
+
+---
+
+<a id="cmd-else"></a>
+
+## `else`
+
+Runs a block when none of the if or elif conditions were met; goes right before fi
+
+```bash
+if [ -f file.txt ]; then echo "exists"; else echo "missing"; fi
 ```
 
 <sub>[⬆ Back to top](#commands)</sub>
