@@ -2,7 +2,7 @@
 
 > Read what's passed to your script: positional arguments and flags parsed with getopts.
 
-**6** items · **1** parameters  ·  [⬅ Back to index](../README.md)
+**5** items · **2** parameters  ·  [⬅ Back to index](../README.md)
 
 <a id="commands"></a>
 
@@ -13,7 +13,6 @@
 | [`$#`](#cmd-sym-36-35) | Holds the number of arguments passed on the command line |
 | [`$*`](#cmd-sym-36-42) | Holds all the arguments passed on the command line in a single variable |
 | [`getopts`](#cmd-getopts) | Processes the options a script receives (-m, -h...) one at a time; usually used inside a while loop |
-| [`$OPTARG`](#cmd-optarg) | Holds the value that comes with the option getopts is currently processing |
 
 ---
 
@@ -86,19 +85,6 @@ while getopts "m:h" arg; do ... done
 | Parameter | What it does | Example |
 |:--|:--|:--|
 | `"m:h" arg` | List of valid options, stored in arg; a ":" after a letter means that option takes a value, which ends up in $OPTARG | `while getopts "m:h" arg; do case $arg in m) name=$OPTARG;; h) help;; esac; done` |
-
-<sub>[⬆ Back to top](#commands)</sub>
-
----
-
-<a id="cmd-optarg"></a>
-
-## `$OPTARG`
-
-Holds the value that comes with the option getopts is currently processing
-
-```bash
-m) name=$OPTARG;;
-```
+| `$OPTARG` | Holds the value that comes with the option getopts is currently processing | `while getopts "m:h" arg; do case $arg in m) name=$OPTARG;; esac; done` |
 
 <sub>[⬆ Back to top](#commands)</sub>

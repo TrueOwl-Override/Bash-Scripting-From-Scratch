@@ -13,7 +13,6 @@ Arguments & Options,"$1, $2...","The first, second (and so on) argument passed o
 Arguments & Options,$#,Holds the number of arguments passed on the command line,"echo ""Got $# arguments"""
 Arguments & Options,$*,Holds all the arguments passed on the command line in a single variable,"echo ""Arguments: $*"""
 Arguments & Options,getopts,"Processes the options a script receives (-m, -h...) one at a time; usually used inside a while loop","while getopts ""m:h"" arg; do ... done"
-Arguments & Options,$OPTARG,Holds the value that comes with the option getopts is currently processing,m) name=$OPTARG;;
 Conditionals,if,Runs a block if the condition is true and another one (else) if it isn't; closed with fi,"if [ $n -eq 1 ]; then echo ""one""; else echo ""other""; fi"
 Conditionals,case,Compares a variable against several patterns and runs the block that matches; closed with esac,"case $arg in m) echo ""option m"";; esac"
 Loops & Sequences,for,"Loops over a list of items one by one, running a block of code for each",for i in $(seq 1 5); do echo $i; done

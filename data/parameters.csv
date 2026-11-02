@@ -3,6 +3,7 @@ exit,1,"Ends the script with exit code 1, signalling an error",exit 1
 declare,-i,"Makes the variable an integer, so its value is treated as a number",declare -i counter=0
 let,+=,Adds a value to what the variable already holds,let counter+=1
 getopts,"""m:h"" arg","List of valid options, stored in arg; a "":"" after a letter means that option takes a value, which ends up in $OPTARG","while getopts ""m:h"" arg; do case $arg in m) name=$OPTARG;; h) help;; esac; done"
+getopts,$OPTARG,Holds the value that comes with the option getopts is currently processing,"while getopts ""m:h"" arg; do case $arg in m) name=$OPTARG;; esac; done"
 if,-eq,Checks whether two numbers are equal,"if [ $a -eq $b ]; then echo ""equal""; fi"
 if,-f,"Checks whether the file exists and is a regular file (not a folder)","if [ -f file.txt ]; then echo ""exists""; fi"
 if,elif,"Inside an if, checks another condition when the previous one wasn't met (else if)","if [ $n -eq 1 ]; then echo ""one""; elif [ $n -eq 2 ]; then echo ""two""; else echo ""other""; fi"

@@ -4,7 +4,7 @@
 
 **A personal reference for writing Bash scripts: variables, arguments, conditionals, loops, functions and more, with copy-ready examples.**
 
-![Concepts](https://img.shields.io/badge/concepts-31-2ea44f?style=for-the-badge) ![Parameters](https://img.shields.io/badge/parameters-20-0969da?style=for-the-badge) ![Categories](https://img.shields.io/badge/categories-9-8250df?style=for-the-badge)
+![Concepts](https://img.shields.io/badge/concepts-30-2ea44f?style=for-the-badge) ![Parameters](https://img.shields.io/badge/parameters-21-0969da?style=for-the-badge) ![Categories](https://img.shields.io/badge/categories-9-8250df?style=for-the-badge)
 
 🌐 **Searchable web version:** [`docs/index.html`](docs/index.html)  ·  🐧 **Companion repo:** [Linux-Commands](https://github.com/TrueOwl-Override/Linux-Commands)
 
@@ -18,7 +18,7 @@
 |:-:|:--|:--|:--|
 | 📜 | **[Script Basics](notes/script-basics.md)** | The building blocks of every script: the shebang, exit codes, command substitution and subshells. | `#!/bin/bash` `exit` `$()` `(command)` |
 | 📦 | **[Variables & Arithmetic](notes/variables-arithmetic.md)** | Store values in variables, read them back and do math with them. | `variable="Hello"` `$variable or ${variable}` `${color_variable}` `declare` `let` |
-| 🎯 | **[Arguments & Options](notes/arguments-options.md)** | Read what's passed to your script: positional arguments and flags parsed with getopts. | `$0` `$1, $2...` `$#` `$*` `getopts` `$OPTARG` |
+| 🎯 | **[Arguments & Options](notes/arguments-options.md)** | Read what's passed to your script: positional arguments and flags parsed with getopts. | `$0` `$1, $2...` `$#` `$*` `getopts` |
 | 🔀 | **[Conditionals](notes/conditionals.md)** | Make decisions with if and case. | `if` `case` |
 | 🔁 | **[Loops & Sequences](notes/loops-sequences.md)** | Repeat work with for and while, and generate sequences to loop over. | `for` `while` `seq` `{0000..9999}` |
 | 🧩 | **[Functions & Signals](notes/functions-signals.md)** | Group commands into functions and react to signals like Ctrl+C. | `function name(){ commands }` `trap` |
@@ -55,7 +55,6 @@
 | [`$*`](notes/arguments-options.md#cmd-sym-36-42) | Holds all the arguments passed on the command line in a single variable | 🎯 Arguments & Options |
 | [`$0`](notes/arguments-options.md#cmd-0) | Holds the name of the script as it was called from the terminal | 🎯 Arguments & Options |
 | [`$1, $2...`](notes/arguments-options.md#cmd-1-2) | The first, second (and so on) argument passed on the command line | 🎯 Arguments & Options |
-| [`$OPTARG`](notes/arguments-options.md#cmd-optarg) | Holds the value that comes with the option getopts is currently processing | 🎯 Arguments & Options |
 | [`$variable or ${variable}`](notes/variables-arithmetic.md#cmd-variable-or-variable) | Reads a variable's value; the braces mark where the name ends when it's stuck to other text | 📦 Variables & Arithmetic |
 | [`${color_variable}`](notes/variables-arithmetic.md#cmd-color-variable) | Variables that hold ANSI color codes; put one before the text to color it and close with the end-color variable | 📦 Variables & Arithmetic |
 | [`(command)`](notes/script-basics.md#cmd-command) | Runs the command in a subshell, a child process separate from the main script | 📜 Script Basics |
