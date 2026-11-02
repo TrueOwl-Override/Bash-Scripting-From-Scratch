@@ -5,6 +5,8 @@ let,+=,Adds a value to what the variable already holds,let counter+=1
 getopts,"""m:h"" arg","List of valid options, stored in arg; a "":"" after a letter means that option takes a value, which ends up in $OPTARG","while getopts ""m:h"" arg; do case $arg in m) name=$OPTARG;; h) help;; esac; done"
 if,-eq,Checks whether two numbers are equal,"if [ $a -eq $b ]; then echo ""equal""; fi"
 if,-f,"Checks whether the file exists and is a regular file (not a folder)","if [ -f file.txt ]; then echo ""exists""; fi"
+if,elif,"Inside an if, checks another condition when the previous one wasn't met (else if)","if [ $n -eq 1 ]; then echo ""one""; elif [ $n -eq 2 ]; then echo ""two""; else echo ""other""; fi"
+if,else,Runs a block when none of the if or elif conditions were met; goes right before fi,"if [ -f file.txt ]; then echo ""exists""; else echo ""missing""; fi"
 case,m) command;;,Defines a pattern inside case and the block to run if it matches; ;; closes that block,"case $arg in m) echo ""option m"";; esac"
 while,[ ]; do; done,Repeats the block while the condition inside the brackets is true,while [ -f file.gz ]; do gunzip file.gz; done
 while,read line; do; done,Reads input line by line and runs the block for each line,cat list.txt | while read line; do echo $line; done
